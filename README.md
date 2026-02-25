@@ -23,6 +23,8 @@ Both are valid. Both are interesting.
 | 2 | 177 | 100% | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head | [gist](https://gist.github.com/xangma/1c2a1b2f9ca871b1f15646eed60d10ab) |
 | 3 | 197 | ~100%* | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm | [gist](https://gist.github.com/xangma/c538a7a9d415f16e61f7bb26ae5cf6b0) |
 
+\* *Passed 8,192 random tests; not independently verified on our 10K test suite yet.*
+
 ### Trained Weights (Learned from Data)
 
 | Rank | Params | Accuracy | Author | Built with | Architecture | Key Tricks | Link |
@@ -34,13 +36,11 @@ Both are valid. Both are interesting.
 | 5 | 1,644 | 99.04% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Codex | 1L decoder, pair tokens | Pair token encoding (digit pairs as single tokens) | [repo](https://github.com/anadim/smallest-addition-transformer-codex) |
 | 6 | 6,080 | 100% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Claude Code | 2L decoder, d=16, ff=48 | Systematic scaling, found phase transition at d=16 | [repo](https://github.com/anadim/smallest-addition-transformer-claude-code) |
 
-\* *Passed 8,192 random tests; not independently verified on our 10K test suite yet.*
-
 ### Notable Attempts (Did Not Qualify)
 
 | Params | Accuracy | Why | Author | Notes | Link |
 |--------|----------|-----|--------|-------|------|
-| 130→190 | ~93% | Below 99% threshold | [cosminscn](https://github.com/cosminscn) | 1L nanoGPT, d=4, 2h. Hand-coded. Sinusoidal resonance routing (period 11), ReLU carry detection, parabolic logit decoding. Originally 130 params, updated to 190. Fails on ~7% of random inputs. | [gist](https://gist.github.com/cosminscn/65a5fa5e20524495415f3cdd6bfdd7d2) |
+| 190 | ~93% | Below 99% threshold | [cosminscn](https://github.com/cosminscn) | 1L nanoGPT, d=4, 2h. Hand-coded. Sinusoidal resonance routing (period 11), ReLU carry detection, parabolic logit decoding. Fails on ~7% of random inputs. | [gist](https://gist.github.com/cosminscn/65a5fa5e20524495415f3cdd6bfdd7d2) |
 
 ## Rules
 
