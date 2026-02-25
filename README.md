@@ -2,7 +2,9 @@
 
 **Challenge:** Build the smallest transformer that can add two 10-digit numbers with >= 99% accuracy on a held-out 10K test set.
 
-Inspired by [Dimitris Papailiopoulos](https://github.com/dimitrispapail) ([@DimitrisPapail](https://x.com/DimitrisPapail))'s [Addition Under Pressure](https://dimitrisp.substack.com/p/addition-under-pressure). The original experiments were run by [anadim](https://github.com/anadim), pitting [Claude Code](https://github.com/anadim/smallest-addition-transformer-claude-code) (6,080 params) against [Codex](https://github.com/anadim/smallest-addition-transformer-codex) (1,644 params) to find minimal addition transformers. The community has since pushed this dramatically lower.
+This started with [Addition Under Pressure](https://dimitrisp.substack.com/p/addition-under-pressure), where I pitted [Claude Code](https://github.com/anadim/smallest-addition-transformer-claude-code) (6,080 params) against [Codex](https://github.com/anadim/smallest-addition-transformer-codex) (1,644 params) to find the smallest transformer that can add 10-digit numbers. The community has since pushed this dramatically lower.
+
+Maintained by [Dimitris Papailiopoulos](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)).
 
 We track two categories:
 
@@ -29,8 +31,8 @@ Both are valid. Both are interesting.
 | 2 | 456 | 100% | [yinglunz](https://github.com/yinglunz) | | 1L decoder, d=7, 1h, ff=14 | Rank-3 factorization, shared-A tied-KV, rank-2 attn out, tied embed | [repo](https://github.com/yinglunz/A-456-Parameter-Transformer-Solves-10-Digit-Addition) |
 | 3 | 491 | 99.97% | [rezabyt](https://github.com/rezabyt) ([@reza_byt](https://x.com/reza_byt)) | | 1L decoder, d=7 | Rank-3 factorization, RMSNorm, curriculum learning | [repo](https://github.com/rezabyt/digit-addition-491p) |
 | 4 | 777 | 99.69% | [Yeb Havinga](https://github.com/yhavinga) ([@YebHavinga](https://x.com/YebHavinga)) | Claude Code | 1L decoder, d=7, 1h, ff=14 | Tied embeddings, no FFN bias, curriculum learning | [repo](https://github.com/yhavinga/gpt-acc-jax) |
-| 5 | 1,644 | 99.04% | [anadim](https://github.com/anadim) | Codex | 1L decoder, pair tokens | Pair token encoding (digit pairs as single tokens) | [repo](https://github.com/anadim/smallest-addition-transformer-codex) |
-| 6 | 6,080 | 100% | [anadim](https://github.com/anadim) | Claude Code | 2L decoder, d=16, ff=48 | Systematic scaling, found phase transition at d=16 | [repo](https://github.com/anadim/smallest-addition-transformer-claude-code) |
+| 5 | 1,644 | 99.04% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Codex | 1L decoder, pair tokens | Pair token encoding (digit pairs as single tokens) | [repo](https://github.com/anadim/smallest-addition-transformer-codex) |
+| 6 | 6,080 | 100% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Claude Code | 2L decoder, d=16, ff=48 | Systematic scaling, found phase transition at d=16 | [repo](https://github.com/anadim/smallest-addition-transformer-claude-code) |
 
 \* *Passed 8,192 random tests; not independently verified on our 10K test suite yet.*
 
@@ -38,7 +40,7 @@ Both are valid. Both are interesting.
 
 | Params | Accuracy | Why | Author | Notes | Link |
 |--------|----------|-----|--------|-------|------|
-| 190 | ~93% | Below 99% threshold | [cosminscn](https://github.com/cosminscn) | 1L nanoGPT, d=4, 2h. Hand-coded. Sinusoidal resonance routing (period 11), ReLU carry detection, parabolic logit decoding. Fails on ~7% of random inputs. | [gist](https://gist.github.com/cosminscn/65a5fa5e20524495415f3cdd6bfdd7d2) |
+| 130→190 | ~93% | Below 99% threshold | [cosminscn](https://github.com/cosminscn) | 1L nanoGPT, d=4, 2h. Hand-coded. Sinusoidal resonance routing (period 11), ReLU carry detection, parabolic logit decoding. Originally 130 params, updated to 190. Fails on ~7% of random inputs. | [gist](https://gist.github.com/cosminscn/65a5fa5e20524495415f3cdd6bfdd7d2) |
 
 ## Rules
 
