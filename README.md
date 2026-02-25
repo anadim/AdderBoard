@@ -1,5 +1,9 @@
 # AdderBoard
 
+<p align="center">
+  <img src="adderboard.png" width="500" alt="AdderBoard">
+</p>
+
 **Challenge:** Build the smallest transformer that can add two 10-digit numbers with >= 99% accuracy on a held-out 10K test set.
 
 This started with [Addition Under Pressure](https://dimitrisp.substack.com/p/addition-under-pressure), where I gave Claude Code and Codex the same prompt: train the smallest possible transformer that can do 10-digit addition with at least 99% accuracy. [Claude Code](https://github.com/anadim/smallest-addition-transformer-claude-code) came back with 6,080 parameters and [Codex](https://github.com/anadim/smallest-addition-transformer-codex) came back with 1,644. The community has since pushed this dramatically lower.
