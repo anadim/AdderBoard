@@ -23,10 +23,12 @@ Both are valid. Both are interesting.
 
 | Rank | Params | Accuracy | Author | Built with | Architecture | Key Tricks | Link |
 |------|--------|----------|--------|------------|-------------|------------|------|
-| 1 | 130 | 100% | [cosminscn](https://github.com/cosminscn) | | 1L nanoGPT, d=4, 2h | Rank-1 linear, factorized embed, sinusoidal PE (period 11), ReLU carry detection, parabolic logit decoding | [gist](https://gist.github.com/cosminscn/89c110dbae76ea0c873d67607e466f5b) |
-| 2 | 139 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | GPT-5.2 Pro + Codex | 1L Qwen3, d=3, 4h/1kv, hd=2 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/191bea43ff7f9316ac178b6c185d7165) |
-| 3 | 177 | 100% | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head | [gist](https://gist.github.com/xangma/1c2a1b2f9ca871b1f15646eed60d10ab) |
-| 4 | 197 | ~100%* | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm | [gist](https://gist.github.com/xangma/c538a7a9d415f16e61f7bb26ae5cf6b0) |
+| 1 | 121 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | Codex | 1L Qwen3, d=3, 4h/1kv, hd=2, ff=2 | Tied embed, RoPE digit routing, carry via final norm, SiLU wrap detection | [gist](https://gist.github.com/Wonderfall/7d6f49aa6703352f94d3d80b4cd31e15) |
+| 2 | 130 | 100% | [cosminscn](https://github.com/cosminscn) | | 1L nanoGPT, d=4, 2h | Rank-1 linear, factorized embed, sinusoidal PE (period 11), ReLU carry detection, parabolic logit decoding | [gist](https://gist.github.com/cosminscn/89c110dbae76ea0c873d67607e466f5b) |
+| 3 | 130 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | Codex | 1L Qwen3, d=3, 4h/1kv, hd=2, ff=3 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/066df10de455cdc090900944bdc646cd) |
+| 4 | 139 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | GPT-5.2 Pro + Codex | 1L Qwen3, d=3, 4h/1kv, hd=2 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/191bea43ff7f9316ac178b6c185d7165) |
+| 5 | 177 | 100% | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head | [gist](https://gist.github.com/xangma/1c2a1b2f9ca871b1f15646eed60d10ab) |
+| 6 | 197 | ~100%* | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm | [gist](https://gist.github.com/xangma/c538a7a9d415f16e61f7bb26ae5cf6b0) |
 
 \* *Passed 8,192 random tests; not independently verified on our 10K test suite yet.*
 
@@ -117,9 +119,9 @@ Transformers solve these using attention (for alignment), MLPs (for arithmetic),
 - **Single layers beat two layers** at equivalent parameter budgets (for trained models)
 - **d=7 was the sweet spot** for early trained models — multiple independent teams converged on this
 - **d=4 now works** with rank-3 factorization + grokking (311 params trained)
-- **Hand-coded models can go much smaller** (130 vs 311 trained) since they don't need to be discoverable by SGD
+- **Hand-coded models can go much smaller** (121 vs 311 trained) since they don't need to be discoverable by SGD
 - **Rank-3 factorization** is the key trick for trained models
-- **nanoGPT can beat Qwen3**: the 130-param leader uses a stripped-down nanoGPT with rank-1 projections and sinusoidal PE
+- **Vanilla architectures suffice**: the 121-param leader uses unmodified Qwen3 with just 1 layer, d=3, and ff=2
 
 ## License
 
