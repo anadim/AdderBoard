@@ -8,7 +8,7 @@ Maintained by [Dimitris Papailiopoulos](https://github.com/anadim) ([@dimitrispa
 
 We track two categories:
 
-- **Trained** — weights found by SGD/Adam. This encourages creative ideas around data format, tokenization, curriculum learning, and architecture search.
+- **Trained** — weights learned from data by any training algorithm (SGD, Adam, evolutionary search, etc.). The algorithm must be generic — it should work with any model and dataset, not just this specific problem. This encourages creative ideas around data format, tokenization, curriculum learning, and architecture search.
 - **Hand-coded** — weights set analytically. This is a constructive proof that the architecture *can* represent addition, regardless of whether SGD would find it.
 
 Both are valid. Both are interesting.
@@ -23,7 +23,7 @@ Both are valid. Both are interesting.
 | 2 | 177 | 100% | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head | [gist](https://gist.github.com/xangma/1c2a1b2f9ca871b1f15646eed60d10ab) |
 | 3 | 197 | ~100%* | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm | [gist](https://gist.github.com/xangma/c538a7a9d415f16e61f7bb26ae5cf6b0) |
 
-### Trained Weights (Learned by SGD)
+### Trained Weights (Learned from Data)
 
 | Rank | Params | Accuracy | Author | Built with | Architecture | Key Tricks | Link |
 |------|--------|----------|--------|------------|-------------|------------|------|
@@ -61,7 +61,7 @@ In short: if you can swap in a different set of weights and use the exact same i
 ### What's Allowed
 - Architectural variations: rank-1/low-rank projections, factorized embeddings, custom positional encodings, alternative norms
 - Hand-coded weights (constructive proofs are valid — they show the architecture *can* represent addition)
-- Trained weights (shows SGD *can find* a solution — encourages creative ideas on data format, tokenization, and curriculum)
+- Trained weights via any generic learning algorithm (shows the solution is *learnable* — encourages creative ideas on data format, tokenization, and curriculum)
 - Input formatting choices (reversed digits, delimiters, etc.) as long as the format is fixed and doesn't encode the answer
 
 ### Qualification
