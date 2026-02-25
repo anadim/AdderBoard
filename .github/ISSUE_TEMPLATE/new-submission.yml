@@ -1,0 +1,78 @@
+name: New Leaderboard Submission
+description: Submit a new transformer adder to the leaderboard
+title: "[Submission] {params} params - {your_name}"
+labels: ["submission"]
+body:
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Your name or handle
+    validations:
+      required: true
+
+  - type: input
+    id: params
+    attributes:
+      label: Unique Parameter Count
+      description: Number of unique parameters (after tying/dedup)
+    validations:
+      required: true
+
+  - type: input
+    id: accuracy
+    attributes:
+      label: Accuracy
+      description: "Accuracy on your test set (e.g., 100% on 10K random pairs)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: method
+    attributes:
+      label: Method
+      options:
+        - Trained (SGD/Adam)
+        - Hand-coded weights
+        - Hybrid
+    validations:
+      required: true
+
+  - type: input
+    id: architecture
+    attributes:
+      label: Architecture
+      description: "e.g., 1L decoder, d=7, 1 head, ff=14"
+    validations:
+      required: true
+
+  - type: textarea
+    id: tricks
+    attributes:
+      label: Key Tricks
+      description: List the main techniques used to reduce parameter count
+      placeholder: |
+        - Rank-3 factorization
+        - Tied embeddings
+        - ...
+
+  - type: input
+    id: link
+    attributes:
+      label: Link to Code
+      description: GitHub repo, gist, or other link to your implementation
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification Output
+      description: "Paste the output of `python verify.py your_submission.py` or your own test results"
+      render: shell
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Anything else worth mentioning
