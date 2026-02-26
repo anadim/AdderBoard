@@ -23,16 +23,17 @@ Both are valid. Both are interesting.
 
 | Rank | Params | Accuracy | Author | Built with | Architecture | Key Tricks | Link |
 |------|--------|----------|--------|------------|-------------|------------|------|
-| 1 | 66 | 100% | [cosminscn](https://github.com/cosminscn) | | 1L nanoGPT, d=4, 2h | Rotation Q (2 angles), sparse c_proj (2 nonzero), parabolic lm_head, factorized embed, sinusoidal PE (period 11) | [gist](https://gist.github.com/cosminscn/e4d028281378e16b18e61fca1163f9cb) |
-| 2 | 93 | 100% | [jacobli99](https://github.com/SeuperHakkerJa) | | 1L decoder, d=2, 5h (MQA), hd=2, ff=4 | Tied parabolic decode, RoPE digit routing, ReLU carry detection | [gist](https://gist.github.com/SeuperHakkerJa/9d615964d2284a9a699b5a24cf19e69d) |
-| 3 | 116 | 100% | [nino](https://github.com/prasannakotyal) | | 1L Qwen3, d=3, 4h/1kv, hd=2 | Tied embed, shared RMSNorm vectors, RoPE (hd=2) | [gist](https://gist.github.com/prasannakotyal/467d4c54564beba34d9d7edbd41c33dc) |
-| 4 | 121 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | Codex | 1L Qwen3, d=3, 4h/1kv, hd=2, ff=2 | Tied embed, RoPE digit routing, carry via final norm, SiLU wrap detection | [gist](https://gist.github.com/Wonderfall/7d6f49aa6703352f94d3d80b4cd31e15) |
-| 5 | 130 | 100% | [cosminscn](https://github.com/cosminscn) | | 1L nanoGPT, d=4, 2h | Rank-1 linear, factorized embed, sinusoidal PE (period 11), ReLU carry detection, parabolic logit decoding | [gist](https://gist.github.com/cosminscn/89c110dbae76ea0c873d67607e466f5b) |
-| 6 | 130 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | Codex | 1L Qwen3, d=3, 4h/1kv, hd=2, ff=3 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/066df10de455cdc090900944bdc646cd) |
-| 7 | 139 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | GPT-5.2 Pro + Codex | 1L Qwen3, d=3, 4h/1kv, hd=2 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/191bea43ff7f9316ac178b6c185d7165) |
-| 8 | 148 | 100% | [bingbangboom-lab](https://github.com/bingbangboom-lab) | | 2L Qwen3, d=5, 2h/1kv, hd=2, ff=3 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head, cross-layer sharing | [gist](https://gist.github.com/bingbangboom-lab/3594f00a1aa0b668e70a92c396d0f0d1) |
-| 9 | 177 | 100% | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head | [gist](https://gist.github.com/xangma/1c2a1b2f9ca871b1f15646eed60d10ab) |
-| 10 | 197 | ~100%* | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm | [gist](https://gist.github.com/xangma/c538a7a9d415f16e61f7bb26ae5cf6b0) |
+| 1 | 50 | 100% | [lichengliu03](https://github.com/lichengliu03) | | 1L custom GPT, d=4, 2h, hd=2 | Factorized embed, rotation Q (2 angles), tied embed+V dir, rank-1 MLP, parabolic head, sinusoidal PE (period 11) | [repo](https://github.com/lichengliu03/TinyAdder-50p) |
+| 2 | 66 | 100% | [cosminscn](https://github.com/cosminscn) | | 1L nanoGPT, d=4, 2h | Rotation Q (2 angles), sparse c_proj (2 nonzero), parabolic lm_head, factorized embed, sinusoidal PE (period 11) | [gist](https://gist.github.com/cosminscn/e4d028281378e16b18e61fca1163f9cb) |
+| 3 | 93 | 100% | [jacobli99](https://github.com/SeuperHakkerJa) | | 1L decoder, d=2, 5h (MQA), hd=2, ff=4 | Tied parabolic decode, RoPE digit routing, ReLU carry detection | [gist](https://gist.github.com/SeuperHakkerJa/9d615964d2284a9a699b5a24cf19e69d) |
+| 4 | 116 | 100% | [nino](https://github.com/prasannakotyal) | | 1L Qwen3, d=3, 4h/1kv, hd=2 | Tied embed, shared RMSNorm vectors, RoPE (hd=2) | [gist](https://gist.github.com/prasannakotyal/467d4c54564beba34d9d7edbd41c33dc) |
+| 5 | 121 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | Codex | 1L Qwen3, d=3, 4h/1kv, hd=2, ff=2 | Tied embed, RoPE digit routing, carry via final norm, SiLU wrap detection | [gist](https://gist.github.com/Wonderfall/7d6f49aa6703352f94d3d80b4cd31e15) |
+| 6 | 130 | 100% | [cosminscn](https://github.com/cosminscn) | | 1L nanoGPT, d=4, 2h | Rank-1 linear, factorized embed, sinusoidal PE (period 11), ReLU carry detection, parabolic logit decoding | [gist](https://gist.github.com/cosminscn/89c110dbae76ea0c873d67607e466f5b) |
+| 7 | 130 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | Codex | 1L Qwen3, d=3, 4h/1kv, hd=2, ff=3 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/066df10de455cdc090900944bdc646cd) |
+| 8 | 139 | 100% | [Wonderfall](https://github.com/Wonderfall) ([@w0nderfall](https://x.com/w0nderfall)) | GPT-5.2 Pro + Codex | 1L Qwen3, d=3, 4h/1kv, hd=2 | Tied embed, RoPE digit routing, SiLU carry logic | [gist](https://gist.github.com/Wonderfall/191bea43ff7f9316ac178b6c185d7165) |
+| 9 | 148 | 100% | [bingbangboom-lab](https://github.com/bingbangboom-lab) | | 2L Qwen3, d=5, 2h/1kv, hd=2, ff=3 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head, cross-layer sharing | [gist](https://gist.github.com/bingbangboom-lab/3594f00a1aa0b668e70a92c396d0f0d1) |
+| 10 | 177 | 100% | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm, low-rank head | [gist](https://gist.github.com/xangma/1c2a1b2f9ca871b1f15646eed60d10ab) |
+| 11 | 197 | ~100%* | [xangma](https://github.com/xangma) ([@xangma](https://x.com/xangma)) | GPT + Codex | 2L Qwen3, d=5, 2h/1kv, hd=2 | Rank-1 linear, factorized embed, sparse gate, param-free norm | [gist](https://gist.github.com/xangma/c538a7a9d415f16e61f7bb26ae5cf6b0) |
 
 \* *Passed 8,192 random tests; not independently verified on our 10K test suite yet.*
 
@@ -124,9 +125,9 @@ Transformers solve these using attention (for alignment), MLPs (for arithmetic),
 - **Single layers beat two layers** at equivalent parameter budgets (for trained models)
 - **d=7 was the sweet spot** for early trained models — multiple independent teams converged on this
 - **d=4 now works** with rank-3 factorization + grokking (311 params trained)
-- **Hand-coded models can go much smaller** (66 vs 311 trained) since they don't need to be discoverable by SGD
+- **Hand-coded models can go much smaller** (50 vs 311 trained) since they don't need to be discoverable by SGD
 - **Rank-3 factorization** is the key trick for trained models
-- **Vanilla architectures suffice**: the 66-param leader uses nanoGPT with 1 layer, d=4, and 2 heads — with rotation Q, sparse projections, and a parabolic output head
+- **Vanilla architectures suffice**: the 50-param leader uses a custom 1-layer GPT (d=4, 2 heads) with rotation Q, rank-1 MLP, tied directions, and a parabolic output head
 
 ## License
 
