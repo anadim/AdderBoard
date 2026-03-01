@@ -45,14 +45,15 @@ Both are valid. Both are interesting.
 
 | Rank | Params | Accuracy | Author | Built with | Architecture | Key Tricks | Link |
 |------|--------|----------|--------|------------|-------------|------------|------|
-| 1 | 311 | 99.999% | [rezabyt](https://github.com/rezabyt) ([@reza_byt](https://x.com/reza_byt)) | | 1L decoder, d=4, 1h, ff=8 | Rank-3 factorization, shared-A tied-KV, RMSNorm, grokking | [repo](https://github.com/rezabyt/digit-addition-311p) |
-| 2 | 335 | 99.92% | [h3nock](https://github.com/h3nock) | | 1L decoder, d=4, 1h, ff=12 | Rank-3 factorization, shared-A tied-KV, RMSNorm, tied embed, curriculum learning | [repo](https://github.com/h3nock/tiny-adder-lab) |
-| 3 | 456 | 100% | [yinglunz](https://github.com/yinglunz) | | 1L decoder, d=7, 1h, ff=14 | Rank-3 factorization, shared-A tied-KV, rank-2 attn out, tied embed | [repo](https://github.com/yinglunz/A-456-Parameter-Transformer-Solves-10-Digit-Addition) |
-| 4 | 491 | 99.97% | [rezabyt](https://github.com/rezabyt) ([@reza_byt](https://x.com/reza_byt)) | | 1L decoder, d=7 | Rank-3 factorization, RMSNorm, curriculum learning | [repo](https://github.com/rezabyt/digit-addition-491p) |
-| 5 | 512 | 99.988% | [yinglunz](https://github.com/yinglunz) ([@yinglun122](https://x.com/yinglun122)) | | 1L decoder, d=7, 1h, ff=14 | Rank-3 factorization | [repo](https://github.com/yinglunz/A-456-Parameter-Transformer-Solves-10-Digit-Addition) |
-| 6 | 777 | 99.69% | [Yeb Havinga](https://github.com/yhavinga) ([@YebHavinga](https://x.com/YebHavinga)) | Claude Code | 1L decoder, d=7, 1h, ff=14 | Tied embeddings, no FFN bias, curriculum learning | [repo](https://github.com/yhavinga/gpt-acc-jax) |
-| 7 | 1,644 | 99.04% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Codex | 1L decoder, pair tokens | Pair token encoding (digit pairs as single tokens) | [repo](https://github.com/anadim/smallest-addition-transformer-codex) |
-| 8 | 6,080 | 100% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Claude Code | 2L decoder, d=16, ff=48 | Systematic scaling, found phase transition at d=16 | [repo](https://github.com/anadim/smallest-addition-transformer-claude-code) |
+| 1 | 162 | 100% | [fblissjr](https://github.com/fblissjr) | Claude Code + Gemini | 1L decoder, d=3, 3h, ff=6 | Fixed attention mask (hand-coded routing, 0 params), RMSNorm, reversed LSB-first, two-phase grokking (AdamW) | [repo](https://github.com/fblissjr/AdderBoard/blob/main/submission_trained.py) |
+| 2 | 311 | 99.999% | [rezabyt](https://github.com/rezabyt) ([@reza_byt](https://x.com/reza_byt)) | | 1L decoder, d=4, 1h, ff=8 | Rank-3 factorization, shared-A tied-KV, RMSNorm, grokking | [repo](https://github.com/rezabyt/digit-addition-311p) |
+| 3 | 335 | 99.92% | [h3nock](https://github.com/h3nock) | | 1L decoder, d=4, 1h, ff=12 | Rank-3 factorization, shared-A tied-KV, RMSNorm, tied embed, curriculum learning | [repo](https://github.com/h3nock/tiny-adder-lab) |
+| 4 | 456 | 100% | [yinglunz](https://github.com/yinglunz) | | 1L decoder, d=7, 1h, ff=14 | Rank-3 factorization, shared-A tied-KV, rank-2 attn out, tied embed | [repo](https://github.com/yinglunz/A-456-Parameter-Transformer-Solves-10-Digit-Addition) |
+| 5 | 491 | 99.97% | [rezabyt](https://github.com/rezabyt) ([@reza_byt](https://x.com/reza_byt)) | | 1L decoder, d=7 | Rank-3 factorization, RMSNorm, curriculum learning | [repo](https://github.com/rezabyt/digit-addition-491p) |
+| 6 | 512 | 99.988% | [yinglunz](https://github.com/yinglunz) ([@yinglun122](https://x.com/yinglun122)) | | 1L decoder, d=7, 1h, ff=14 | Rank-3 factorization | [repo](https://github.com/yinglunz/A-456-Parameter-Transformer-Solves-10-Digit-Addition) |
+| 7 | 777 | 99.69% | [Yeb Havinga](https://github.com/yhavinga) ([@YebHavinga](https://x.com/YebHavinga)) | Claude Code | 1L decoder, d=7, 1h, ff=14 | Tied embeddings, no FFN bias, curriculum learning | [repo](https://github.com/yhavinga/gpt-acc-jax) |
+| 8 | 1,644 | 99.04% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Codex | 1L decoder, pair tokens | Pair token encoding (digit pairs as single tokens) | [repo](https://github.com/anadim/smallest-addition-transformer-codex) |
+| 9 | 6,080 | 100% | [anadim](https://github.com/anadim) ([@dimitrispapail](https://x.com/dimitrispapail)) | Claude Code | 2L decoder, d=16, ff=48 | Systematic scaling, found phase transition at d=16 | [repo](https://github.com/anadim/smallest-addition-transformer-claude-code) |
 
 ## Rules
 
