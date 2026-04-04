@@ -1,0 +1,6 @@
+[submodule "orze"]
+	path = orze
+	url = https://github.com/warlockee/orze.git
+[submodule "orze-pro"]
+	path = orze-pro
+	url = https://github.com/warlockee/orze-pro.git
