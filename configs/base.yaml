@@ -1,0 +1,39 @@
+# Base config — shared defaults for all AdderBoard experiments
+
+# Architecture
+d_model: 3
+n_heads: 1
+n_kv_heads: 1
+head_dim: 4
+ff_mult: 2
+n_layers: 1
+rope_theta: 3.0
+qk_norm: true
+use_swiglu: true
+use_rope: true
+norm_type: rms
+embed_type: lookup
+tie_embed: true
+tie_kv: false
+tie_qo: false
+tie_gate: false
+share_norms: false
+attn_out_rank: 0
+vocab_size: 10
+
+# Training
+lr: 0.01
+min_lr: 0.0001
+steps: 30000
+batch_size: 256
+warmup_steps: 500
+weight_decay: 0.01
+grad_clip: 1.0
+eval_every: 1000
+patience: 15000
+carry_bias: 0.0
+optimizer: adamw
+seed: 42
+
+# Curriculum (format: "digits:step,digits:step,...")
+# curriculum: "3:2000,6:5000,10:rest"

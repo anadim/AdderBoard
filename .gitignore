@@ -1,0 +1,11 @@
+.env
+venv/
+__pycache__/
+results/
+idea_lake
+idea_lake.db
+ideas.md
+ideas.md.*
+*.pyc
+*.pt
+*.pth
