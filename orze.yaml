@@ -1,0 +1,134 @@
+# orze.yaml — AdderBoard competition config
+
+# --- REQUIRED ---
+train_script: train.py
+ideas_file: ideas.md
+base_config: configs/base.yaml
+results_dir: results
+python: /home/azureuser/AdderBoard/venv/bin/python3
+
+# --- ENV ---
+train_extra_env:
+  PYTHONUNBUFFERED: "1"
+
+# --- GPU SCHEDULING (VRAM-based) ---
+gpu_scheduling:
+  max_vram_pct: 85          # stop filling GPU at 85% VRAM
+  min_free_vram_mib: 2000   # require 2GB free minimum
+  max_jobs_per_gpu: 3       # spread across all 4 GPUs (tiny models use <1GB each)
+  max_load_per_cpu: 1.0     # throttle when load/cpu exceeds this (shared machine)
+  min_free_ram_gb: 32       # throttle when free RAM drops below 32GB
+
+# --- TIMEOUTS ---
+timeout: 259200
+poll: 30
+stall_minutes: 60
+max_idea_failures: 2
+orphan_timeout_hours: 2
+min_disk_gb: 50
+
+# --- CLEANUP ---
+cleanup:
+  interval: 50
+  patterns:
+    - "checkpoint_epoch*.pt"
+    - "*.tmp"
+
+# --- LLM AUTO-FIX ---
+max_fix_attempts: 2
+
+# --- GC (checkpoint cleanup) ---
+gc:
+  enabled: true
+  checkpoints_dir: results
+  keep_top: 20
+  keep_recent: 10
+  min_free_gb: 50
+
+# --- REPORT ---
+report:
+  title: "AdderBoard Research Report"
+  primary_metric: accuracy
+  sort: descending
+  columns:
+    - {key: "accuracy", label: "Accuracy", fmt: ".4f"}
+    - {key: "num_params", label: "Params", fmt: "d"}
+    - {key: "verify_accuracy", label: "Verify Acc", fmt: ".4f"}
+    - {key: "qualified", label: "Qualified", fmt: ""}
+    - {key: "training_time", label: "Time(s)", fmt: ".0f"}
+
+# --- RETROSPECTION ---
+# Detection only — FSM owns all pause/trigger decisions
+retrospection:
+  enabled: true
+  interval: 6
+  auto_pause: false           # FSM controls pausing, not orze
+  plateau_window: 20
+  fail_window: 10
+  fail_threshold: 0.5
+
+# --- CODE EVOLUTION ---
+# Disabled at orze level — FSM dispatches triggers
+evolution:
+  enabled: false              # FSM writes _trigger_code_evolution, not orze
+
+# --- RESEARCH AGENT ---
+roles:
+  research:
+    mode: research
+    backend: gemini
+    rules_file: RESEARCH_RULES.md
+    cooldown: 120
+    timeout: 600
+    model: gemini-3.1-pro-preview
+    allowed_tools: "Read,Write,Edit,Glob,Grep,Bash"
+  code_evolution:
+    mode: claude
+    triggered_by: fsm
+    rules_file: orze-pro/src/orze_pro/prompts/CODE_EVOLUTION_RULES.md
+    timeout: 900
+    model: opus
+    allowed_tools: "Read,Write,Edit,Glob,Grep,Bash"
+  meta_research:
+    mode: research
+    backend: gemini
+    triggered_by: fsm
+    rules_file: RESEARCH_RULES.md
+    cooldown: 3600
+    timeout: 600
+    model: gemini-3.1-pro-preview
+    allowed_tools: "Read,Write,Edit,Glob,Grep,Bash"
+  professor:
+    mode: claude
+    rules_file: orze-pro/src/orze_pro/prompts/PROFESSOR_RULES.md
+    cooldown: 600
+    timeout: 1500
+    model: opus
+    allowed_tools: "Read,Write,Edit,Glob,Grep,Bash,WebFetch,WebSearch,ToolSearch"
+    pausable: false           # professor reviews even when research is paused
+  bug_fixer:
+    mode: claude
+    triggered_by: fsm
+    rules_file: orze-pro/src/orze_pro/prompts/BUG_FIXER_RULES.md
+    cooldown: 3600            # gate deadlock-breaker auto-triggers (FSM script role never modifies ideas.md, so zero-output counter is always high)
+    timeout: 600
+    model: opus
+    allowed_tools: "Read,Write,Edit,Glob,Grep,Bash"
+    pausable: false           # bug fixer runs even when research is paused
+  thinker:
+    mode: claude
+    model: claude-opus-4-6
+    rules_file: THINKER_RULES.md
+    allowed_tools: "Read,Write,Edit,Glob,Grep,Bash"
+    timeout: 1800
+    trigger_conditions:
+      plateau_patience: 20
+      failure_cascade: 10
+      periodic_interval: 100
+    min_cooldown: 1800
+  fsm:
+    mode: script
+    script: fsm/runner.py
+    args: ["--results-dir", "{results_dir}"]
+    cooldown: 120
+    timeout: 120
